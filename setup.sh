@@ -8,6 +8,8 @@ zsh ghostty/ghostty_config.sh
 zsh vscode/vscode_config.sh
 zsh zsh/zsh_config.sh
 zsh starship/starship_config.sh
+zsh iterm/iterm_config.sh
+zsh color/terminal_config.sh
 
 curl -fsSL https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh | zsh
 
