@@ -1,5 +1,5 @@
-font-family = Monolisa
-font-size = 16
+font-family = MonoLisa
+font-size = 14
 
 # Disable ligatures and configure font features
 font-feature = calt
@@ -9,6 +9,13 @@ font-feature = zero
 font-feature = ss01
 
 theme = catppuccin-mocha.conf
+background-blur-radius = 20
+mouse-hide-while-typing = true
+window-decoration = true
+# keybind = global:cmd+/=toggle_quick_terminal
+macos-option-as-alt = true
+# background-opacity = 0.7
+# background-blur-radius = 20
 minimum-contrast = 1.1
 macos-icon = custom-style
 

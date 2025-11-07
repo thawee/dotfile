@@ -9,7 +9,9 @@ This repository contains configuration files and setup scripts for quickly setti
 ## Features
 
 - **Homebrew Bundle**: Automated installation of CLI tools, applications, and fonts
-- **Ghostty Terminal**: Custom terminal emulator configuration
+- **Ghostty Terminal**: Custom terminal emulator configuration with Catppuccin Mocha theme
+- **VS Code Settings**: Optimized editor and terminal configurations
+- **Zsh Configuration**: Enhanced shell with plugins, history, and useful aliases
 - **macOS Settings**: Automated Finder and system preferences configuration
 - **Development Tools**: Pre-configured setup for Node.js, Java, Gradle, and Maven via SDKMAN
 
@@ -17,6 +19,8 @@ This repository contains configuration files and setup scripts for quickly setti
 
 - macOS
 - [Homebrew](https://brew.sh/) installed
+- **MonoLisa Font** (recommended) - Install before running setup for best terminal experience
+  - Alternative fonts: JetBrains Mono, Fira Code, Menlo, Monaco
 - Internet connection
 
 ## Installation
@@ -54,7 +58,8 @@ cd dotfile
 - **Visual Studio Code** - Code editor
 
 ### Fonts
-- Symbols Only Nerd Font
+- **MonoLisa** - Primary monospace font (commercial, install separately)
+- Symbols Only Nerd Font - Icon support
 
 ### VS Code Extensions
 - Catppuccin Theme
@@ -65,7 +70,16 @@ cd dotfile
 - Reveal in Ghostty
 
 ### Development Tools (via setup.sh)
-- **Zap** - Zsh plugin manager
+- **Ghostty** - Terminal configuration with Catppuccin Mocha theme
+- **VS Code** - Settings including terminal font and appearance
+- **Zsh** - Enhanced shell with:
+  - Zap plugin manager
+  - Syntax highlighting
+  - Auto-suggestions
+  - Starship prompt
+  - Git aliases (gs, gp, gc, gco)
+  - Directory shortcuts (ll, .., ...)
+  - Smart history (10,000 commands, deduplication)
 - **SDKMAN** - Java, Gradle, Maven version manager
 - **Node.js** - npm packages and configuration
 
@@ -74,8 +88,40 @@ cd dotfile
 - `Brewfile` - Homebrew dependencies and applications
 - `setup.sh` - Main setup script
 - `osx.sh` - macOS system preferences and Finder settings
-- `ghostty/` - Ghostty terminal configuration
-- `color/` - Terminal color themes (Catppuccin Mocha)
+- `ghostty/` - Ghostty terminal configuration and themes
+  - `config` - Main Ghostty settings (font, theme, window settings)
+  - `ghostty_config.sh` - Installation script
+  - `themes/` - Catppuccin color themes
+- `vscode/` - VS Code configuration
+  - `settings.json` - Editor and terminal settings
+  - `vscode_config.sh` - Installation script
+- `zsh/` - Zsh shell configuration
+  - `.zshrc` - Shell settings with plugins, history, and aliases
+  - `zsh_config.sh` - Installation script
+- `color/` - Terminal color themes (Catppuccin variants, Squirrelsong)
+
+## Font Configuration
+
+**Ghostty Terminal:**
+- Font: MonoLisa (requires separate installation)
+- Font size: 14px
+- Font features: Custom ligatures (ss01), slashed zero, calt
+- No fallback fonts (Ghostty doesn't support font fallback yet)
+
+**VS Code Terminal:**
+- Font family: MonoLisa with fallback chain:
+  - MonoLisa (primary)
+  - JetBrains Mono
+  - Fira Code Retina
+  - Menlo
+  - Monaco
+  - Courier New
+  - monospace (system default)
+- Font size: 14px
+- Line height: 1.2
+- Smooth scrolling enabled
+
+To install MonoLisa or alternative fonts, purchase/download and install to `~/Library/Fonts/` before running the setup script.
 
 ## macOS Customizations (osx.sh)
 
