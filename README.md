@@ -12,8 +12,7 @@ This repository contains configuration files and setup scripts for quickly setti
 - **Terminal Themes**: Catppuccin color schemes for Ghostty, iTerm2, and Terminal.app
 - **Ghostty Terminal**: Custom terminal emulator configuration with Catppuccin Mocha theme
 - **VS Code Settings**: Optimized editor and terminal configurations
-- **Zsh Configuration**: Enhanced shell with plugins, history, and useful aliases
-- **Starship Prompt**: Customized prompt matching Catppuccin Mocha theme
+- **Zsh Configuration**: Enhanced shell with Zinit plugin manager and Powerlevel10k theme
 - **macOS Settings**: Automated Finder and system preferences configuration
 - **Development Tools**: Pre-configured setup for Node.js, Java, Gradle, and Maven via SDKMAN
 
@@ -47,8 +46,10 @@ cd dotfile
 
 ### CLI Tools (Brewfile)
 - `git` - Version control
-- `starship` - Cross-shell prompt
 - `node` - JavaScript runtime
+- `nvim` - Modern vim editor
+- `bat` - Modern cat replacement with syntax highlighting
+- `fzf` - Fuzzy finder
 - `lsd` - Modern ls replacement
 - `tree` - Directory tree viewer
 - `wget` - File downloader
@@ -89,18 +90,15 @@ All terminals configured with matching Catppuccin Mocha theme:
   - Format on save, bracket colorization
   - File auto-save and trimming
   - Catppuccin Mocha theme
-- **Starship** - Customized prompt with:
-  - Catppuccin Mocha color palette
-  - Git status indicators
-  - Language version displays (Node, Python, Java, Go, Rust)
-  - Docker context support
-- **Zsh** - Enhanced shell with:
-  - Zap plugin manager
-  - Syntax highlighting
-  - Auto-suggestions
-  - Git aliases (gs, gp, gc, gco)
-  - Directory shortcuts (ll, .., ...)
-  - Smart history (10,000 commands, deduplication)
+- **Zsh with Zinit** - Modern plugin manager with:
+  - **Powerlevel10k** - Fast and customizable prompt
+  - **zsh-syntax-highlighting** - Command syntax highlighting
+  - **zsh-autosuggestions** - Fish-like autosuggestions
+  - **zsh-completions** - Additional completion definitions
+  - **fzf-tab** - Fuzzy completion with preview
+  - **Oh My Zsh plugins**: git, sudo, command-not-found
+  - Smart history (5,000 commands, deduplication)
+  - Modern aliases (nvim, bat, ls with colors)
 - **SDKMAN** - Java, Gradle, Maven version manager
 - **Node.js** - npm packages and configuration
 
@@ -123,11 +121,9 @@ All terminals configured with matching Catppuccin Mocha theme:
 - `vscode/` - VS Code configuration
   - `settings.json` - Editor and terminal settings
   - `vscode_config.sh` - Installation script
-- `starship/` - Starship prompt configuration
-  - `starship.toml` - Catppuccin Mocha themed prompt
-  - `starship_config.sh` - Installation script
 - `zsh/` - Zsh shell configuration
-  - `.zshrc` - Shell settings with plugins, history, and aliases
+  - `zshrc_zinit` - Modern shell setup with Zinit and Powerlevel10k
+  - `zshrc_zap` - Alternative setup with Zap plugin manager
   - `zsh_config.sh` - Installation script
 
 ## Font Configuration

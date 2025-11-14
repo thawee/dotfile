@@ -6,12 +6,12 @@ cask_args appdir: "~/Applications"
 #tap "homebrew/cask-fonts"
 
 # CLI tools
-brew "git" # The Git
-brew "starship" # Prompt manager
+#brew "git" # The Git
 brew "node" # Fallback Node.js version
 brew "telnet"
 brew "graphviz"
 brew "lsd"
+brew "bat"
 brew "tree"
 brew "wget"
 #brew "gcc"
@@ -28,7 +28,6 @@ cask "visual-studio-code"
 vscode "sapegin.reveal-in-ghostty"
 vscode "catppuccin.catppuccin-vsc"
 vscode "oderwat.indent-rainbow"
-vscode "christian-kohler.path-intellisense"
 vscode "alefragnani.project-manager"
 vscode "mechatroner.rainbow-csv"
-
+vscode "mk12.better-git-line-blame"

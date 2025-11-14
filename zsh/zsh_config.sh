@@ -14,6 +14,6 @@ fi
 
 # Copy .zshrc
 echo "Copying .zshrc..."
-cp "$SCRIPT_DIR/.zshrc" "$HOME/.zshrc"
+cp "$SCRIPT_DIR/zshrc_zinit" "$HOME/.zshrc"
 
 echo "✓ Zsh configuration complete!"
