@@ -8,7 +8,7 @@ zsh ghostty/ghostty_config.sh
 zsh vscode/vscode_config.sh
 zsh zsh/zsh_config.sh
 zsh iterm/iterm_config.sh
-zsh color/terminal_config.sh
+zsh terminal/terminal_config.sh
 
 # SDK, Java, Gradle, Maven
 echo "Installing sdkman dependencies…"
