@@ -68,9 +68,9 @@ inline = "autoload -Uz compinit && zsh-defer compinit"
 # ----------------
 
 # Set after compinit, so that tab completions are available for the cd command
-[plugins.functions]
-local = "~/.config/zsh/functions"
-use = ["alias.zsh"]
+[plugins.aliases]
+local = "~/.config/zsh"
+use = ["aliases.zsh"]
 apply = ["defer"]
 
 # Note: sheldon doesn't allow you to defer inline via apply, hence that we use the raw zsh-defer command inline

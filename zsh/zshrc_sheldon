@@ -36,7 +36,7 @@ unsetopt HIST_BEEP
 # Load ZSH plugins
 # Sheldon is a fast plugin manager that loads plugins in parallel
 #------------------
-builtin source <(sheldon source)
+builtin source <(sheldon source 2>/dev/null)
 
 #------------------
 # Zstyle configurations
