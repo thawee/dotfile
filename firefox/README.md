@@ -25,7 +25,7 @@ To match the font used in your terminals:
 
 1. Open `about:config` in Firefox
 2. Search for `font.name.monospace.x-western`
-3. Set to `MonoLisa` (or your preferred monospace font)
+3. Set to `MonoLisa Nerd Font` (or your preferred monospace font)
 
 ## Developer Tools Theme
 

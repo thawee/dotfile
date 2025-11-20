@@ -4,7 +4,14 @@
 plug "zap-zsh/supercharge"
 plug "zsh-users/zsh-syntax-highlighting"
 plug "zsh-users/zsh-autosuggestions"
-plug "wintermi/zsh-starship"
+plug zsh-users/zsh-completions
+#plug "wintermi/zsh-starship"
+plug "romkatv/powerlevel10k"
+#plug "mafredri/zsh-async"
+#plug "sindresorhus/pure"
+
+# Load Powerlevel10k config
+[[ ! -f ~/.config/zsh/p10k.zsh ]] || source ~/.config/zsh/p10k.zsh
 
 # History configuration
 HISTSIZE=10000
@@ -22,14 +29,27 @@ else
   compinit -C
 fi
 
-# Aliases
-alias ll='ls -lah'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias gs='git status'
-alias gp='git pull'
-alias gc='git commit'
-alias gco='git checkout'
+# Load common aliases
+[ -f "$HOME/.config/zsh/aliases.zsh" ] && source "$HOME/.config/zsh/aliases.zsh"
+
+# Initialize tools
+if command -v zoxide >/dev/null 2>&1; then
+    eval "$(zoxide init zsh)"
+    alias cd="z"
+fi
+
+if command -v thefuck >/dev/null 2>&1; then
+    eval "$(thefuck --alias)"
+fi
+
+if command -v fzf >/dev/null 2>&1; then
+    source <(fzf --zsh)
+fi
+
+# Fastfetch on startup
+if command -v fastfetch >/dev/null 2>&1; then
+    fastfetch
+fi
 
 # SDKMAN
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

@@ -35,7 +35,7 @@ iTerm2 Catppuccin color schemes for consistent theming across terminals.
 After importing the color scheme, set the font:
 
 1. Settings → Profiles → Text
-2. Font: MonoLisa (or your preferred monospace font)
+2. Font: MonoLisa Nerd Font (or your preferred monospace font)
 3. Size: 14
 
 ## Recommended Settings

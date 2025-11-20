@@ -72,12 +72,7 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
-# Aliases
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  alias ls='ls -G'
-else
-  alias ls='ls --color'
-fi
-alias c='clear'
-alias vim='nvim'
-alias cat='bat'
+# Load common aliases
+[ -f "$HOME/.config/zsh/aliases.zsh" ] && source "$HOME/.config/zsh/aliases.zsh"
+
+fastfetch

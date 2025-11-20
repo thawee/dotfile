@@ -1,0 +1,114 @@
+#----------------------
+# .zprofile path setup
+#----------------------
+# It's best practice to setup path in .zprofile
+# source: https://mac.install.guide/terminal/zshrc-zprofile
+
+#----------------------
+# XDG Base Directory Specification
+#----------------------
+typeset -x XDG_CACHE_HOME="$HOME/.cache"
+typeset -x XDG_CONFIG_HOME="$HOME/.config"
+typeset -x XDG_DATA_HOME="$HOME/.local/share"
+typeset -x XDG_STATE_HOME="$HOME/.local/state"
+
+#----------------------
+# Homebrew Configuration
+#----------------------
+# Determine architecture and set Homebrew paths
+if [[ $CPUTYPE == arm64 ]]; then
+    typeset -x HOMEBREW_PREFIX="/opt/homebrew"
+    typeset -x HOMEBREW_REPOSITORY="$HOMEBREW_PREFIX"
+else
+    typeset -x HOMEBREW_PREFIX="/usr/local"
+    typeset -x HOMEBREW_REPOSITORY="$HOMEBREW_PREFIX/Homebrew"
+fi
+
+# Homebrew Performance Optimizations
+typeset -x HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar" \
+    HOMEBREW_BAT=1 \
+    HOMEBREW_BOOTSNAP=1 \
+    HOMEBREW_BUNDLE_INSTALL_CLEANUP=1 \
+    HOMEBREW_CASK_OPTS="--no-quarantine" \
+    HOMEBREW_CLEANUP_MAX_AGE_DAYS=7 \
+    HOMEBREW_CLEANUP_PERIODIC_FULL_DAYS=5 \
+    HOMEBREW_DISPLAY_INSTALL_TIMES=1 \
+    HOMEBREW_NO_ANALYTICS=1 \
+    HOMEBREW_NO_AUTO_UPDATE=1 \
+    HOMEBREW_NO_EMOJI=1 \
+    HOMEBREW_NO_ENV_HINTS=1 \
+    HOMEBREW_NO_INSECURE_REDIRECT=1 \
+    HOMEBREW_UPGRADE_GREEDY=1
+
+#----------------------
+# Path Configuration
+#----------------------
+# LATEST_PYTHON_PATH=${${(Oa)$(echo $HOME/.local/share/uv/python/cpython-3*-macos-*-none)}[1]}
+# $LATEST_PYTHON_PATH/bin(N) if I want to use the uv version of python
+typeset -U path fpath
+path=(
+    $HOMEBREW_PREFIX/opt/{python@3/libexec,node@20}/bin(N)
+    $HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin(N)
+    $HOMEBREW_PREFIX/{bin,sbin}(N)
+    $HOME/{go/bin,.orbstack/bin,.local/bin}(N)
+    $path
+)
+
+fpath=(
+    # OrbStack: command-line tools and integration is automatically setup in .zprofile
+    /Applications/OrbStack.app/Contents/{MacOS,Resources}/completions/zsh(N)
+    $HOME/.granted/zsh_autocomplete/assume(N)
+    $fpath
+)
+
+# Ensure path arrays are unique and exported
+typeset -x -U PATH path FPATH fpath MANPATH manpath
+typeset -x -UT INFOPATH infopath
+
+#----------------------
+# System Configuration
+#----------------------
+# Locale settings
+typeset -x LANG=${LANG:-'en_US.UTF-8'}
+typeset -x LC_ALL=${LC_ALL:-'en_US.UTF-8'}
+
+# System utilities
+typeset -x EDITOR=code \
+    VISUAL=code \
+    PAGER=less \
+    BROWSER='open' \
+    GPG_TTY=$TTY \
+    SHELL_SESSIONS_DISABLE=1 \
+    LESSOPEN="|$HOME/.lesspipe %s" \
+    MANPAGER="col -xbf | bat -p -l man" \
+    LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43'
+
+#----------------------
+# Development Tools
+#----------------------
+# FZF Configuration
+typeset -x FZF_DEFAULT_COMMAND='fd --type file --follow --hidden --exclude .git --exclude node_modules'
+typeset -x FZF_DEFAULT_OPTS='--height=35% --layout=reverse --border --cycle --multi --info=inline'
+
+typeset -x FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+typeset -x FZF_CTRL_T_OPTS="--height=90% --preview-window=right:65% --prompt='∼ ' --pointer='▶' --marker='✓' \
+--preview '([[ -f {} ]] && bat --style=numbers,header,grid --color=always {}) || ([[ -d {} ]] && (eza --tree -I node_modules --git-ignore {} | less)) || echo {} 2>/dev/null | head -200' \
+--bind '?:toggle-preview,ctrl-a:select-all,ctrl-y:execute-silent(echo {+} | pbcopy),ctrl-v:execute(code {+})' \
+--bind 'tab:toggle+down,shift-tab:toggle+up'"
+
+typeset -x FZF_CTRL_R_OPTS='--prompt="History> " --preview="echo {}" --preview-window=down:3:wrap'
+
+#------------------
+# zsh-users/zsh-autosuggestions
+#------------------
+typeset -g ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=30
+typeset -g ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
+typeset -g ZSH_AUTOSUGGEST_MANUAL_REBIND=true
+typeset -g ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+
+#------------------
+# zsh-users/zsh-history-substring-search
+#------------------
+typeset -g HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=true
+typeset -g HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='fg=#00cc00,bold'     #p10k green
+typeset -g HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='fg=#FF5C57,bold' #p10k red

@@ -1,0 +1,110 @@
+# `sheldon` configuration file
+# ----------------------------
+#
+# You can modify this file directly or you can use one of the following
+# `sheldon` commands which are provided to assist in editing the config file:
+#
+# - `sheldon add` to add a new plugin to the config file
+# - `sheldon edit` to open up the config file in the default editor
+# - `sheldon remove` to remove a plugin from the config file
+#
+# See the documentation for more https://github.com/rossmacarthur/sheldon#readme
+#
+# Inspired by https://github.com/rossmacarthur/dotfiles/blob/trunk/src/sheldon/plugins.toml
+#
+# Load order of zsh-users plugins:
+# https://www.reddit.com/r/zsh/comments/1etl9mz/comment/lie04dt/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+# https://github.com/romkatv/zsh-bench?tab=readme-ov-file#deferred-initialization
+
+shell = "zsh"
+
+[templates]
+defer = """{{ hooks?.pre | nl }}{% for file in files %}zsh-defer source "{{ file }}"\n{% endfor %}{{ hooks?.post | nl }}"""
+defer-more = """{{ hooks?.pre | nl }}{% for file in files %}zsh-defer -t 0.5 source "{{ file }}"\n{% endfor %}{{ hooks?.post | nl }}"""
+fpath = 'fpath=( "{{ dir }}" $fpath )'
+path = 'path=( "{{ dir }}" $path )'
+
+# Paths
+# -----
+
+[plugins.git-open]
+github = "paulirish/git-open"
+apply = ["path"]
+
+[plugins.zsh-bench]
+github = "romkatv/zsh-bench"
+apply = ["path"]
+
+# Completions
+# -----------
+
+[plugins.zsh-completions]
+github = "zsh-users/zsh-completions"
+use = ["{{ name }}.plugin.zsh"]
+
+[plugins.fzf]
+github = "junegunn/fzf"
+use = ["{completion,key-bindings}.zsh"]
+
+# Sourced
+# -------
+
+[plugins]
+[plugins.zsh-defer]
+github = "romkatv/zsh-defer"
+
+[plugins.zsh-autoswitch-virtualenv]
+github = "dannysteenman/zsh-autoswitch-virtualenv"
+use = ["autoswitch_virtualenv.plugin.zsh"]
+
+[plugins.powerlevel10k]
+github = "romkatv/powerlevel10k"
+hooks.post = "source ~/.config/zsh/p10k.zsh"
+
+[plugins.compinit]
+inline = "autoload -Uz compinit && zsh-defer compinit"
+
+# Deferred plugins
+# ----------------
+
+# Set after compinit, so that tab completions are available for the cd command
+[plugins.functions]
+local = "~/.config/zsh/functions"
+use = ["alias.zsh"]
+apply = ["defer"]
+
+# Note: sheldon doesn't allow you to defer inline via apply, hence that we use the raw zsh-defer command inline
+[plugins.zoxide]
+inline = "zsh-defer -c 'eval \"$(zoxide init zsh --cmd cd)\"'"
+
+# Note: Autoswitch wont work if you set "system" as default in fnm
+# e.g. use command: fnm default v22.18.0
+[plugins.fnm]
+inline = "zsh-defer -c 'eval \"$(fnm env --use-on-cd --version-file-strategy recursive)\"'"
+
+# fzf-tab needs to be loaded after compinit, but before plugins which will wrap widgets,
+# such as zsh-autosuggestions or fast-syntax-highlighting
+[plugins.fzf-tab]
+github = "Aloxaf/fzf-tab"
+use = ["{{ name }}.plugin.zsh"]
+apply = ["defer"]
+
+[plugins.fast-syntax-highlighting]
+github = "zdharma-continuum/fast-syntax-highlighting"
+use = ["{{ name }}.plugin.zsh"]
+apply = ["defer"]
+
+# Plugins that are even more deferred
+# -----------------------------------
+
+# This should be loaded AFTER zsh-syntax-highlighting.
+[plugins.zsh-history-substring-search]
+github = "zsh-users/zsh-history-substring-search"
+use = ["{{ name }}.zsh"]
+apply = ["defer-more"]
+hooks.post = "bindkey '^[[A' history-substring-search-up; bindkey '^[[B' history-substring-search-down"
+
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
+use = ["{{ name }}.zsh"]
+apply = ["defer-more"]

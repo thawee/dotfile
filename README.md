@@ -9,10 +9,10 @@ This repository contains configuration files and setup scripts for quickly setti
 ## Features
 
 - **Homebrew Bundle**: Automated installation of CLI tools, applications, and fonts
-- **Terminal Themes**: Catppuccin color schemes for Ghostty, iTerm2, and Terminal.app
-- **Ghostty Terminal**: Custom terminal emulator configuration with Catppuccin Mocha theme
+- **Terminal Themes**: Catppuccin color schemes for iTerm2 and Terminal.app
 - **VS Code Settings**: Optimized editor and terminal configurations
-- **Zsh Configuration**: Enhanced shell with Zinit plugin manager and Powerlevel10k theme
+- **Zsh Configuration**: Enhanced shell with Zap plugin manager and Powerlevel10k prompt
+- **Fastfetch**: Minimal system information display on startup
 - **macOS Settings**: Automated Finder and system preferences configuration
 - **Development Tools**: Pre-configured setup for Node.js, Java, Gradle, and Maven via SDKMAN
 
@@ -20,8 +20,9 @@ This repository contains configuration files and setup scripts for quickly setti
 
 - macOS
 - [Homebrew](https://brew.sh/) installed
-- **MonoLisa Font** (recommended) - Install before running setup for best terminal experience
-  - Alternative fonts: JetBrains Mono, Fira Code, Menlo, Monaco
+- **MonoLisa Nerd Font** (recommended) - Install before running setup for best terminal experience.
+  - This font includes the necessary icons for Powerlevel10k.
+  - Alternative fonts: JetBrains Mono Nerd Font, FiraCode Nerd Font.
 - Internet connection
 
 ## Installation
@@ -47,6 +48,7 @@ cd dotfile
 ### CLI Tools (Brewfile)
 - `git` - Version control
 - `node` - JavaScript runtime
+- `fastfetch` - System information tool
 - `nvim` - Modern vim editor
 - `bat` - Modern cat replacement with syntax highlighting
 - `fzf` - Fuzzy finder
@@ -57,19 +59,17 @@ cd dotfile
 - `graphviz` - Graph visualization
 
 ### Applications
-- **Ghostty** - Modern terminal emulator
 - **Visual Studio Code** - Code editor
 - **iTerm2** - Alternative terminal (optional)
 
 ### Terminal Themes
 All terminals configured with matching Catppuccin Mocha theme:
-- **Ghostty** - Built-in theme configuration
 - **iTerm2** - `.itermcolors` files in `iterm/` directory
 - **Terminal.app** - `.terminal` files in `color/` directory
 - Additional variants: Latte (light), Frappe, Macchiato, Squirrelsong
 
 ### Fonts
-- **MonoLisa** - Primary monospace font (commercial, install separately)
+- **MonoLisa Nerd Font** - Primary monospace font (commercial, install separately)
 - Symbols Only Nerd Font - Icon support
 
 ### VS Code Extensions
@@ -78,10 +78,8 @@ All terminals configured with matching Catppuccin Mocha theme:
 - Path Intellisense
 - Project Manager
 - Rainbow CSV
-- Reveal in Ghostty
 
 ### Development Tools (via setup.sh)
-- **Ghostty** - Terminal configuration with Catppuccin Mocha theme
 - **iTerm2** - Color schemes ready to import
 - **Terminal.app** - Native macOS terminal themes
 - **VS Code** - Settings including:
@@ -90,14 +88,14 @@ All terminals configured with matching Catppuccin Mocha theme:
   - Format on save, bracket colorization
   - File auto-save and trimming
   - Catppuccin Mocha theme
-- **Zsh with Zinit** - Modern plugin manager with:
-  - **Powerlevel10k** - Fast and customizable prompt
+- **Zsh with Zap** - Lightweight plugin manager with:
+  - **Pure** - Minimal and fast prompt
   - **zsh-syntax-highlighting** - Command syntax highlighting
   - **zsh-autosuggestions** - Fish-like autosuggestions
   - **zsh-completions** - Additional completion definitions
-  - **fzf-tab** - Fuzzy completion with preview
-  - **Oh My Zsh plugins**: git, sudo, command-not-found
-  - Smart history (5,000 commands, deduplication)
+  - **zsh-async** - Async library for Zsh
+  - **Fastfetch** - System info on startup (customized minimal config)
+  - Smart history (10,000 commands, deduplication)
   - Modern aliases (nvim, bat, ls with colors)
 - **SDKMAN** - Java, Gradle, Maven version manager
 - **Node.js** - npm packages and configuration
@@ -107,10 +105,6 @@ All terminals configured with matching Catppuccin Mocha theme:
 - `Brewfile` - Homebrew dependencies and applications
 - `setup.sh` - Main setup script
 - `osx.sh` - macOS system preferences and Finder settings
-- `ghostty/` - Ghostty terminal configuration and themes
-  - `config` - Main Ghostty settings (font, theme, window settings)
-  - `ghostty_config.sh` - Installation script
-  - `themes/` - Catppuccin color themes
 - `iterm/` - iTerm2 configuration
   - `*.itermcolors` - Catppuccin color schemes (Mocha, Latte, Frappe, Macchiato)
   - `iterm_config.sh` - Installation script
@@ -121,43 +115,39 @@ All terminals configured with matching Catppuccin Mocha theme:
 - `vscode/` - VS Code configuration
   - `settings.json` - Editor and terminal settings
   - `vscode_config.sh` - Installation script
+- `fastfetch/` - Fastfetch configuration
+  - `config.jsonc` - Minimal system info config
+  - `fastfetch_config.sh` - Installation script
 - `zsh/` - Zsh shell configuration
-  - `zshrc_zinit` - Modern shell setup with Zinit and Powerlevel10k
-  - `zshrc_zap` - Alternative setup with Zap plugin manager
+  - `zshrc_zap` - Modern shell setup with Zap and Pure prompt
+  - `aliases.zsh` - Shared aliases
   - `zsh_config.sh` - Installation script
 
 ## Font Configuration
 
-**Ghostty Terminal:**
-- Font: MonoLisa (requires separate installation)
-- Font size: 14px
-- Font features: Custom ligatures (ss01), slashed zero, calt
-- No fallback fonts (Ghostty doesn't support font fallback yet)
-
 **VS Code Editor:**
-- Font family: MonoLisa with fallback chain
+- Font family: MonoLisa Nerd Font with fallback chain
 - Font size: 14px
 - Line height: 1.6
 - Ligatures enabled
 
 **VS Code Terminal:**
-- Font family: MonoLisa with fallback chain:
-  - MonoLisa (primary)
+- Font family: MonoLisa Nerd Font with fallback chain:
+  - MonoLisa Nerd Font (primary)
+  - MonoLisa
+  - Symbols Nerd Font Mono
   - JetBrains Mono
   - Fira Code Retina
-  - Menlo
-  - Monaco
-  - Courier New
   - monospace (system default)
 - Font size: 14px
 - Line height: 1.2
 - Smooth scrolling enabled
 
 **iTerm2 & Terminal.app:**
-- Recommended: MonoLisa, 14px
+- Recommended: **MonoLisa Nerd Font**, 14px
 - Set manually after importing color scheme
 
-To install MonoLisa or alternative fonts, purchase/download and install to `~/Library/Fonts/` before running the setup script.
+To install MonoLisa Nerd Font or alternative fonts, purchase/download and install to `~/Library/Fonts/` before running the setup script.
 
 ## Terminal Setup
 
@@ -168,10 +158,6 @@ The setup script configures all available terminals:
 ```
 
 ### Individual Terminal Setup
-
-**Ghostty** (Automatic)
-- Configuration applied automatically by `setup.sh`
-- Theme: Catppuccin Mocha with blur effects
 
 **iTerm2** (Manual Import)
 ```bash

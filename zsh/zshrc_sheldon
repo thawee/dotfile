@@ -1,0 +1,161 @@
+#---------------
+# .zshrc setup
+#---------------
+# Always set these first, so history is preserved, no matter what happens.
+# Store in iCloud for automatic backup across Macs
+#HISTFILE="${HOME}/Library/Mobile Documents/com~apple~CloudDocs/.zsh_history"
+
+# Max number of history entries to keep in memory and on disk.
+# Set both to same value to ensure all in-memory commands are saved
+HISTSIZE=50000           # Maximum events in internal history
+SAVEHIST=50000           # Maximum events in history file
+
+# Commands to ignore in history (extended pattern matching)
+HISTORY_IGNORE="(ls|ll|la|cd|pwd|exit|clear|history|top|htop|rm|cp|mv|less|more|vim|code|which|man|df|du|free|ps|kill|:q)"
+
+# Set options for history
+# INC_APPEND_HISTORY: Write to history file immediately (no SHARE_HISTORY to avoid race conditions)
+# EXTENDED_HISTORY: Save timestamps
+# HIST_EXPIRE_DUPS_FIRST: Expire duplicates first when trimming history
+# HIST_FCNTL_LOCK: Use fcntl for file locking (safer for concurrent access)
+# HIST_FIND_NO_DUPS: Don't show duplicates when searching
+# HIST_IGNORE_ALL_DUPS: Remove older duplicate entries from history
+# HIST_IGNORE_SPACE: Don't record commands starting with space
+# HIST_NO_FUNCTIONS: Don't store function definitions
+# HIST_NO_STORE: Don't store 'history' or 'fc' commands
+# HIST_REDUCE_BLANKS: Remove superfluous blanks
+# HIST_SAVE_NO_DUPS: Don't write duplicate entries to history file
+# HIST_VERIFY: Show command with history expansion before running
+setopt EXTENDED_HISTORY HIST_EXPIRE_DUPS_FIRST HIST_FCNTL_LOCK HIST_FIND_NO_DUPS \
+    HIST_IGNORE_ALL_DUPS HIST_IGNORE_SPACE HIST_NO_FUNCTIONS \
+    HIST_NO_STORE HIST_REDUCE_BLANKS HIST_SAVE_NO_DUPS HIST_VERIFY \
+    INC_APPEND_HISTORY
+unsetopt HIST_BEEP
+
+#------------------
+# Load ZSH plugins
+# Sheldon is a fast plugin manager that loads plugins in parallel
+#------------------
+builtin source <(sheldon source)
+
+#------------------
+# Zstyle configurations
+# Remember to use single quotes here!
+# Source for zstyles: https://github.com/fluxninja/dotfiles/blob/master/dot_zshrc
+#------------------
+# Basic completion settings
+zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*' verbose true
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' special-dirs true
+zstyle ':completion:*' squeeze-slashes true
+
+# Performance optimizations
+zstyle ':completion:*' accept-exact '*(N)'
+zstyle ':completion:*' file-sort modification
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/.zcompcache"
+
+# Visual improvements
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' menu select
+
+# Menu formatting
+zstyle ':completion:*:descriptions' format '-- %d --'
+zstyle ':completion:*:messages' format '%F{purple}-- %d --%f'
+zstyle ':completion:*:warnings' format '%F{red}-- no matches found --%f'
+
+# Ignore certain functions
+zstyle ':completion:*:functions' ignored-patterns '(_*|pre(cmd|exec))'
+
+# Git-specific settings
+zstyle ':completion:*:git-checkout:*' sort false
+
+# FZF-tab configurations
+zstyle ':fzf-tab:*' fzf-bindings 'space:accept'
+zstyle ':fzf-tab:*' switch-group ',' '.'
+
+# Process completion (macOS compatible)
+zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm"
+zstyle ':fzf-tab:complete:kill:argument-rest' fzf-preview \
+    '[[ $group == "[process ID]" ]] && ps -p $word -o comm='
+zstyle ':fzf-tab:complete:kill:argument-rest' fzf-flags --preview-window=down:10:wrap
+
+# Directory and file preview with eza
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1lh --icons --git-ignore --group-directories-first --sort=accessed --color=always $realpath'
+zstyle ':fzf-tab:complete:cd:*' fzf-flags --height=35% --preview-window=right:65%
+
+# Environment variables preview
+zstyle ':fzf-tab:complete:(-parameter-|-brace-parameter-|export|unset|expand):*' \
+    fzf-preview 'echo ${(P)word}'
+zstyle ':fzf-tab:complete:(-parameter-|-brace-parameter-|export|unset|expand):*' \
+    fzf-flags --preview-window=down:10:wrap
+
+# Homebrew completions
+zstyle ':fzf-tab:complete:brew-(install|uninstall|search|info):*-argument-rest' \
+    fzf-preview '
+    package_type="formula"
+    if [[ $group == *"cask"* ]]; then
+        package_type="cask"
+    fi
+
+    if [[ $package_type == "formula" ]]; then
+        jaq -r --arg name "$word" '\''
+        .formulae[] |
+        select(.name == $name) |
+        "Name: \(.name)\nDescription: \(.desc)\nHomepage: \(.homepage)\nInstalled version: \(if .installed and (.installed | length > 0) then .installed[0].version else "Not installed" end)\nUpstream version: \(.versions.stable // "Unknown")\nDependencies: \(if .dependencies then (.dependencies | join(", ")) else "None" end)"
+        '\'' "${XDG_CACHE_HOME:-$HOME/.cache}/brew_info.json"
+    else
+        jaq -r --arg name "$word" '\''
+        .casks[] |
+        select(.token == $name) |
+        "Name: \(.token)\nDescription: \(.desc)\nHomepage: \(.homepage)\nVersion: \(.version)\nInstalled: \(if .installed == "true" then "Yes" else "No" end)"
+        '\'' "${XDG_CACHE_HOME:-$HOME/.cache}/brew_info.json"
+    fi
+    '
+zstyle ':fzf-tab:complete:brew*:*' fzf-flags --height=45% --preview-window=right:65%:wrap
+
+# Show tldr and man info in preview section
+zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
+zstyle ':fzf-tab:complete:tldr:argument-1' fzf-preview 'tldr --color always $word'
+
+# Show tldr info of cli commands in preview section
+zstyle ':fzf-tab:complete:-command-:*' fzf-preview \
+    '(out=$(tldr --color always "$word" 2>/dev/null) && echo "$out" || \
+    out=$(MANWIDTH=$FZF_PREVIEW_COLUMNS man "$word" 2>/dev/null) && echo "$out" || \
+    out=$(which "$word") && echo "$out" || echo "${(P)word}")'
+zstyle ':fzf-tab:complete:-command-:*' fzf-flags --height=60% --preview-window=right:65%:wrap
+
+# File and directory preview with less (uses .lesspipe if available)
+zstyle ':fzf-tab:complete:(cat|bat|code|vim|eza|ls|fd|find|cp|mv|rm):argument-rest' fzf-preview 'less ${(Q)realpath}'
+zstyle ':fzf-tab:complete:(cat|bat|code|vim):argument-rest' fzf-flags --height=75% --preview-window=right:75%
+zstyle ':fzf-tab:complete:(eza|ls|fd|find|cp|mv|rm):argument-rest' fzf-flags --height=45% --preview-window=right:65%
+
+# Preview git -- these don't work with homebrew git package
+zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview 'git diff $word | delta'
+zstyle ':fzf-tab:complete:git-log:*' fzf-preview 'git log --color=always $word'
+zstyle ':fzf-tab:complete:git-help:*' fzf-preview 'git help $word | bat -plman --color=always'
+zstyle ':fzf-tab:complete:git-show:*' fzf-preview \
+    'case "$group" in
+    "commit tag") git show --color=always $word ;;
+    *) git show --color=always $word | delta ;;
+   esac'
+zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
+    'case "$group" in
+    "modified file") git diff $word | delta ;;
+    "recent commit object name") git show --color=always $word | delta ;;
+    *) git log --color=always $word ;;
+   esac'
+zstyle ':fzf-tab:complete:git-*:*' fzf-flags --height=85% --preview-window=right:75%:wrap
+
+# Load common aliases
+[ -f "$HOME/.config/zsh/aliases.zsh" ] && source "$HOME/.config/zsh/aliases.zsh"
+
+# Fastfetch on startup
+if command -v fastfetch >/dev/null 2>&1; then
+    fastfetch
+fi
+
+# SDKMAN
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

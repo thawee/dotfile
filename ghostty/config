@@ -1,4 +1,8 @@
-font-family = MonoLisa
+# Application Behavior
+quit-after-last-window-closed = true
+
+# --- Appearance ---
+font-family = MonoLisa Nerd Font
 font-size = 14
 
 # Disable ligatures and configure font features
@@ -7,17 +11,28 @@ font-feature = -clig
 font-feature = -liga
 font-feature = zero
 font-feature = ss01
+font-thicken=true
 
 theme = catppuccin-mocha.conf
+window-height=32
+window-width=100
+window-padding-x = 8
+window-padding-y = 12,8
+
 background-blur-radius = 20
 mouse-hide-while-typing = true
+
+window-title-font-family="MonoLisa Variable"
 window-decoration = true
-# keybind = global:cmd+/=toggle_quick_terminal
-macos-option-as-alt = true
 # background-opacity = 0.7
 # background-blur-radius = 20
 minimum-contrast = 1.1
+
+# macOS Specific
+macos-titlebar-style = hidden
+macos-titlebar-proxy-icon = hidden
 macos-icon = custom-style
+macos-option-as-alt = true
 
 # Bar non-blinking cursor
 adjust-cursor-thickness = 2
@@ -25,10 +40,10 @@ cursor-style = bar
 cursor-style-blink = false
 shell-integration-features = no-cursor
 
-window-padding-x = 8
-window-padding-y = 12,8
-
 clipboard-trim-trailing-spaces = true
 copy-on-select = clipboard
 
 macos-titlebar-style = tabs
+
+# --- Keybindings ---
+keybind = performable:super+c=copy_to_clipboard
