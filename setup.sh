@@ -1,4 +1,4 @@
-
+#!/bin/bash
 
 # Install dependencies
 echo "Installing Homebrew dependencies…"
@@ -10,7 +10,7 @@ zsh iterm/iterm_config.sh
 zsh color/terminal_config.sh
 zsh fastfetch/fastfetch_config.sh
 
-curl -fsSL https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh | zsh
+#curl -fsSL https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh | zsh
 zsh terminal/terminal_config.sh
 zsh zsh/zsh_config.sh
 

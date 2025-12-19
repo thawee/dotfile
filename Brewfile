@@ -24,6 +24,9 @@ brew "fastfetch"
 
 # UI app
 #cask "ghostty" # Terminal emulator
+# cask "monitorcontrol"
+cask "localsend"
+cask "proxyman"
 
 # Fonts
 cask "font-symbols-only-nerd-font"
@@ -32,8 +35,11 @@ cask "visual-studio-code"
 # Visual Studio Code extensions
 #vscode "sapegin.theme-squirrelsonglight"
 #vscode "sapegin.reveal-in-ghostty"
-vscode "catppuccin.catppuccin-vsc"
+#vscode "catppuccin.catppuccin-vsc"
+vscode "syahrizaldev.material-solarized"
 vscode "oderwat.indent-rainbow"
 vscode "alefragnani.project-manager"
 vscode "mechatroner.rainbow-csv"
 vscode "mk12.better-git-line-blame"
+vscode "ms-vscode.hexeditor"
+vscode "zeithaste.cursorcharcode"

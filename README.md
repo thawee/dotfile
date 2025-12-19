@@ -11,7 +11,7 @@ This repository contains configuration files and setup scripts for quickly setti
 - **Homebrew Bundle**: Automated installation of CLI tools, applications, and fonts
 - **Terminal Themes**: Catppuccin color schemes for iTerm2 and Terminal.app
 - **VS Code Settings**: Optimized editor and terminal configurations
-- **Zsh Configuration**: Enhanced shell with Zap plugin manager and Powerlevel10k prompt
+- **Zsh Configuration**: Enhanced shell with Sheldon plugin manager and Powerlevel10k prompt
 - **Fastfetch**: Minimal system information display on startup
 - **macOS Settings**: Automated Finder and system preferences configuration
 - **Development Tools**: Pre-configured setup for Node.js, Java, Gradle, and Maven via SDKMAN
@@ -88,14 +88,17 @@ All terminals configured with matching Catppuccin Mocha theme:
   - Format on save, bracket colorization
   - File auto-save and trimming
   - Catppuccin Mocha theme
-- **Zsh with Zap** - Lightweight plugin manager with:
-  - **Pure** - Minimal and fast prompt
-  - **zsh-syntax-highlighting** - Command syntax highlighting
+- **Zsh with Sheldon** - Fast Rust-based plugin manager with:
+  - **Powerlevel10k** - Fast and flexible Zsh prompt
+  - **fast-syntax-highlighting** - Optimized syntax highlighting
   - **zsh-autosuggestions** - Fish-like autosuggestions
   - **zsh-completions** - Additional completion definitions
-  - **zsh-async** - Async library for Zsh
+  - **fzf-tab** - Replace zsh's default completion selection menu with fzf
+  - **zsh-history-substring-search** - Search history with up/down arrows
+  - **zsh-autoswitch-virtualenv** - Auto switch python virtualenvs
+  - **zoxide** - Smarter cd command
   - **Fastfetch** - System info on startup (customized minimal config)
-  - Smart history (10,000 commands, deduplication)
+  - Smart history (50,000 commands, deduplication)
   - Modern aliases (nvim, bat, ls with colors)
 - **SDKMAN** - Java, Gradle, Maven version manager
 - **Node.js** - npm packages and configuration
@@ -119,7 +122,9 @@ All terminals configured with matching Catppuccin Mocha theme:
   - `config.jsonc` - Minimal system info config
   - `fastfetch_config.sh` - Installation script
 - `zsh/` - Zsh shell configuration
-  - `zshrc_zap` - Modern shell setup with Zap and Pure prompt
+  - `zshrc_sheldon` - Modern shell setup with Sheldon and Powerlevel10k
+  - `sheldon_plugins.toml` - Sheldon plugin configuration
+  - `p10k.zsh` - Powerlevel10k configuration
   - `aliases.zsh` - Shared aliases
   - `zsh_config.sh` - Installation script
 
