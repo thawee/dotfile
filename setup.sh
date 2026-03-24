@@ -3,6 +3,7 @@
 # Install dependencies
 echo "Installing Homebrew dependencies…"
 brew bundle install --upgrade --file Brewfile
+curl -fsSL https://raw.githubusercontent.com/bwya77/vscode-dark-islands/main/bootstrap.sh | bash
 
 zsh vscode/vscode_config.sh
 #zsh starship/starship_config.sh
