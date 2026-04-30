@@ -29,6 +29,6 @@ cp "$SCRIPT_DIR/aliases.zsh" "$HOME/.config/zsh/aliases.zsh"
 
 # Copy p10k config
 echo "Copying p10k config..."
-cp "$SCRIPT_DIR/p10k.zsh" "$HOME/.config/zsh/p10k.zsh"
+cp "$SCRIPT_DIR/p10k.sh" "$HOME/.config/zsh/p10k.sh"
 
 echo "✓ Zsh configuration complete!"

@@ -1,0 +1,282 @@
+// FCLDEV CIF/ACN/DEP/LN domain schema (generated from live metadata)
+// Environment: fcldev (172.30.74.56:20572)
+// Date: 2026-04-08
+// Scope: Main tables (CIF, ACN, DEP, LN) and directly related tables.
+
+Table CIF {
+  ACN bigint [pk, note: 'Customer Number']
+  NAM varchar(180) [note: 'Customer Name']
+  FNAME varchar(120) [note: 'First Name']
+  LNM varchar(120) [note: 'Last Name']
+  DOB date [note: 'Date of Birth']
+  DAO date [note: 'Date Account Opened']
+  EMAIL varchar(55) [note: 'Electronic Mail']
+  HPH varchar(12) [note: 'Home Phone']
+  BPH varchar(12) [note: 'Business Phone']
+  BOO int [note: 'Branch of Ownership']
+  CC int [note: 'Cost Center']
+  CRCD varchar(3) [note: 'Currency Code']
+  GRP varchar(4) [note: 'Account Group']
+  CIFOFF varchar(20) [note: 'Officer Code']
+  ALERT boolean [note: 'Eligible for Alerts']
+}
+
+Table ACN {
+  CID bigint [pk, note: 'Account Number']
+  ACN bigint [note: 'Customer Number']
+  ACCTNAME varchar(25) [note: 'Account Name']
+  DAO date [note: 'Date Account Opened']
+  DTC date [note: 'Date Account Closed']
+  BAL decimal(15,2) [note: 'Ledger Balance']
+  BALAVAIL decimal(18,2) [note: 'Available Balance']
+  BOO int [note: 'Branch of Ownership']
+  CRCD varchar(3) [note: 'Currency Code']
+  GRP varchar(4) [note: 'Product Group']
+  CLS varchar(1) [note: 'Product Class']
+  CC int [note: 'Cost Center']
+  CHKS varchar(6) [note: 'Check Type']
+  COMM boolean [note: 'Commercial Account Flag']
+}
+
+Table DEP {
+  CID bigint [pk, note: 'Account Number']
+  BALAVL decimal(15,2) [note: 'Available Balance']
+  ACR decimal(15,5) [note: 'Accrued Interest/Dividend']
+  INP date [note: 'Interest Next Posting Date']
+  IPF varchar(12) [note: 'Interest Posting Frequency']
+  IPLD date [note: 'Interest Last Posting Date']
+  BWF boolean [note: 'Backup Withholding']
+  CO varchar(12) [note: 'Company Code']
+  CUMDEP boolean [note: 'Cumulative Deposit']
+  AREF bigint [note: 'Loan Account Number']
+}
+
+Table LN {
+  CID bigint [pk, note: 'Account Number']
+  BALCMP decimal(15,2) [note: 'Balance (Computed)']
+  ACR decimal(15,5) [note: 'Accrued Interest']
+  PMTPI decimal(12,2) [note: 'Principal and Interest Payment']
+  MDT date [note: 'Account Maturity Date']
+  TRM varchar(8) [note: 'Account Term']
+  PTRM varchar(8) [note: 'Payment Term']
+  IRN decimal(8,5) [note: 'Nominal Interest Rate']
+  INDEX varchar(20) [note: 'Interest Index']
+  INTFRE varchar(12) [note: 'Interest Change Frequency']
+  AUPTCID bigint [note: 'Automatic Loan Payment Account']
+}
+
+Table ACNADDR {
+  CID bigint [pk, note: 'Account Number']
+  ACN bigint [note: 'Customer Number']
+  AD1 varchar(150)
+  AD2 varchar(150)
+  AD3 varchar(150)
+  AD4 varchar(150)
+  CITY varchar(40)
+  STATE varchar(2)
+  CNTRY varchar(2)
+  MZIP varchar(10)
+}
+
+Table CIFSERV {
+  ACN bigint [note: 'Customer Number']
+  SRVCAT varchar(20) [note: 'Service Category']
+  SERVICE varchar(12) [note: 'Service Name']
+  USERID1 varchar(32) [note: 'User Identifier for Service']
+  STATUS int [note: 'Customer Status - Service']
+
+  indexes {
+    (ACN, SRVCAT, SERVICE) [pk, name: 'pk_cifserv']
+  }
+}
+
+Table CIFACCTS {
+  ACN bigint [note: 'Customer Number']
+  SRVCAT varchar(12) [note: 'Service Category']
+  SERVICE varchar(20) [note: 'Service Name']
+  ACCKEY varchar(40) [note: 'Composite Access Key']
+  IDENTIFIER varchar(25) [note: 'Account Identifier']
+  USERID1 varchar(32) [note: 'Account User ID']
+  STATUS int [note: 'Account Status']
+  ACCENDT date [note: 'Account Enrollment Date']
+  CRCD varchar(3)
+
+  indexes {
+    (ACN, SRVCAT, SERVICE, ACCKEY) [pk, name: 'pk_cifaccts']
+  }
+}
+
+Table ACNSEG {
+  CID bigint [note: 'Account Number']
+  SEGMENT int [note: 'Segment Number']
+  BAL decimal(18,2)
+  IRN decimal(8,5)
+  INDEX varchar(20)
+  INTFRE varchar(12)
+  SEGSTART date
+  SEGMDT date
+  SEGTERM varchar(8)
+
+  indexes {
+    (CID, SEGMENT) [pk, name: 'pk_acnseg']
+  }
+}
+
+Table DEPSEG {
+  CID bigint [note: 'Account Number']
+  SEGMENT int [note: 'Segment Number']
+  POSACR decimal(15,5) [note: 'Accrued Interest']
+  AIACR decimal(15,5) [note: 'Available Interest Accrued']
+  OFFAMT decimal(18,2) [note: 'Offer Amount']
+  OFFRATE decimal(8,5) [note: 'Offer Rate']
+  SEGEND date [note: 'Segment End Date']
+  DLR date [note: 'Date of Last Renewal']
+  PRENA decimal(18,2) [note: 'Partial Renewal Amount']
+
+  indexes {
+    (CID, SEGMENT) [pk, name: 'pk_depseg']
+  }
+}
+
+Table LNSEG {
+  CID bigint [note: 'Account Number']
+  SEGMENT int [note: 'Segment Number']
+  FMDESC varchar(40) [note: 'Segment Description']
+  SEGNAME varchar(12) [note: 'Segment Name']
+  SEGCAT int [note: 'Segment Category']
+  BAL decimal(18,2) [note: 'Segment Balance']
+  ACR decimal(15,5) [note: 'Accrued Interest']
+  PMTPI decimal(18,2) [note: 'Principal and Interest Payment']
+  TRATE decimal(8,5) [note: 'Promotional Rate']
+  TREXD date [note: 'Promotional End Date']
+
+  indexes {
+    (CID, SEGMENT) [pk, name: 'pk_lnseg']
+  }
+}
+
+Table DEPTERM {
+  CID bigint [pk, note: 'Account Number']
+  FIRSTMATDATE date [note: 'First Maturity Date']
+}
+
+Table DEPAUTHODLIMIT {
+  CID bigint [pk, note: 'Account Number']
+  ODLIMITAMT decimal(18,2) [note: 'Authorized Overdraft Limit']
+  ODTERM varchar(8) [note: 'Authorized O/D Limit Term']
+  STARTDTE date [note: 'Authorized O/D Limit Start Date']
+  EXPDTE date [note: 'Authorized O/D Limit Expiration Date']
+  TMPAUTHODLIMIT decimal(18,2) [note: 'Temporary Authorized O/D Limit']
+  TOTALAUTHODLIMIT decimal(18,2) [note: 'Total Authorized O/D Limit']
+}
+
+Table DEPODP {
+  CID bigint [note: 'Account Number']
+  ODACN bigint [note: 'Overdraft Account']
+  PRI int [note: 'Overdraft Priority']
+  TYPE int [note: 'Product Type']
+
+  indexes {
+    (CID, ODACN) [pk, name: 'pk_depodp']
+  }
+}
+
+Table DEPSCH {
+  CID bigint [note: 'Account Number']
+  DEPDT date [note: 'Date of Deposit']
+  SCHDEPA decimal(18,2) [note: 'Scheduled Deposit Amount']
+
+  indexes {
+    (CID, DEPDT) [pk, name: 'pk_depsch']
+  }
+}
+
+Table LNDS1 {
+  CID bigint [note: 'Account Number']
+  SDD date [note: 'Scheduled Disbursement Date']
+  SDA decimal(12,2) [note: 'Scheduled Disbursement Amount']
+  SDS int [note: 'Disbursement Status']
+  SDM int [note: 'Disbursement Method']
+  REPYMT decimal(18,2) [note: 'Principal Repayments']
+
+  indexes {
+    (CID, SDD) [pk, name: 'pk_lnds1']
+  }
+}
+
+Table LNFEE {
+  CID bigint [note: 'Account Number']
+  FEETYP varchar(8) [note: 'Fee Type']
+  FEEREM decimal(12,2) [note: 'Remaining Fee Amount']
+  FEELF decimal(12,2) [note: 'Fee Paid - Life']
+  FEETYTD decimal(12,2) [note: 'Fee Paid - Tax Year To Date']
+  ASND date [note: 'Next Fee Assessment Date']
+
+  indexes {
+    (CID, FEETYP) [pk, name: 'pk_lnfee']
+  }
+}
+
+Table LNRENEW {
+  CID bigint [note: 'Account Number']
+  ROSEQ bigint [note: 'Renewal Option Sequence']
+  RNWEFD date [note: 'Renewal Effective Date']
+  PROCDT date [note: 'Renewal Processed Date']
+  CNVAPP boolean [note: 'Conversion Approved']
+  MROPT boolean [note: 'Maturity Renewal Option']
+  IRN decimal(8,5) [note: 'Nominal Interest Rate']
+  PMTPI decimal(12,2) [note: 'Principal and Interest Payment']
+  RNWBAL decimal(18,2) [note: 'Renewing Principal Balance']
+
+  indexes {
+    (CID, ROSEQ) [pk, name: 'pk_lnrenew']
+  }
+}
+
+Table COL {
+  COLL bigint [pk, note: 'Collateral Record Number']
+  COLACN varchar(30) [note: 'Pledged Account Number']
+  COLCD int [note: 'Collateral Code']
+  COLDES varchar(40) [note: 'Collateral Description']
+  COLVAL decimal(18,2) [note: 'Collateral Value']
+  CRCD varchar(3) [note: 'Currency Code']
+  APDT date [note: 'Appraisal Date']
+  APVAL decimal(18,2) [note: 'Appraised Value']
+}
+
+Table LNCOL {
+  CID bigint [note: 'Account Number']
+  COLL bigint [note: 'Collateral Record Number']
+  PLDGACN bigint [note: 'Pledged Account']
+  FPLDG decimal(18,2) [note: 'Fixed Pledged Amount']
+  PCTPLDG decimal(9,5) [note: 'Percent Pledged']
+  MAXPLDG decimal(18,2) [note: 'Maximum Pledge Limit']
+  ID varchar(25) [note: 'Identification Number']
+
+  indexes {
+    (CID, COLL) [pk, name: 'pk_lncol']
+  }
+}
+
+Ref: ACN.ACN > CIF.ACN
+Ref: DEP.CID > ACN.CID
+Ref: LN.CID > ACN.CID
+Ref: DEP.AREF > LN.CID
+Ref: LN.AUPTCID > ACN.CID
+Ref: ACNADDR.CID > ACN.CID
+Ref: ACNADDR.ACN > CIF.ACN
+Ref: CIFSERV.ACN > CIF.ACN
+Ref: CIFACCTS.ACN > CIF.ACN
+Ref: ACNSEG.CID > ACN.CID
+Ref: DEPSEG.CID > DEP.CID
+Ref: LNSEG.CID > LN.CID
+Ref: DEPTERM.CID > DEP.CID
+Ref: DEPAUTHODLIMIT.CID > DEP.CID
+Ref: DEPODP.CID > DEP.CID
+Ref: DEPODP.ODACN > ACN.CID
+Ref: DEPSCH.CID > DEP.CID
+Ref: LNDS1.CID > LN.CID
+Ref: LNFEE.CID > LN.CID
+Ref: LNRENEW.CID > LN.CID
+Ref: LNCOL.CID > LN.CID
+Ref: LNCOL.COLL > COL.COLL

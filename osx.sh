@@ -100,12 +100,12 @@ chflags nohidden ~/Library
 defaults write com.apple.terminal StringEncodings -array 4
 
 # Use a modified version of the Pro theme by default in Terminal.app
-#open "./color/Squirrelsong.terminal"
+#open "./terminal/Squirrelsong.terminal"
 #sleep 1 # Wait a bit to make sure the theme is loaded
 #defaults write com.apple.terminal "Default Window Settings" -string "Squirrelsong"
 #defaults write com.apple.terminal "Startup Window Settings" -string "Squirrelsong"
 
-open "./color/catppuccin-mocha.terminal"
+open "./terminal/catppuccin-mocha.terminal"
 sleep 1 # Wait a bit to make sure the theme is loaded
 defaults write com.apple.terminal "Default Window Settings" -string "catppuccin-mocha"
 defaults write com.apple.terminal "Startup Window Settings" -string "catppuccin-mocha"

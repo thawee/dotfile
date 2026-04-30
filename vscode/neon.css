@@ -1,0 +1,132 @@
+/* === BASE GLASS === */
+.monaco-workbench .part {
+  background: rgba(18, 18, 24, 0.55) !important;
+  backdrop-filter: blur(24px) saturate(160%);
+  border-radius: 14px;
+  box-shadow:
+    0 0 30px rgba(0, 255, 170, 0.12),
+    inset 0 0 20px rgba(0, 255, 170, 0.06);
+}
+
+/* === NEON HOVER === */
+.monaco-workbench .part:hover {
+  box-shadow:
+    0 0 40px rgba(0, 255, 170, 0.35),
+    inset 0 0 25px rgba(0, 255, 170, 0.12);
+}
+
+/* ===== TOP BAR — GLASS + NEON ===== */
+.tabs-and-actions-container {
+  margin: 10px 12px !important;
+  padding: 6px 10px !important;
+
+  border-radius: 16px;
+
+  /* glass */
+  background: rgba(18, 18, 24, 0.55);
+  backdrop-filter: blur(20px) saturate(150%);
+
+  /* directional light (like macOS glass) */
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.10),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.35),
+
+    /* outer glow (match sidebar) */
+    0 0 20px rgba(0, 255, 170, 0.12),
+    0 8px 30px rgba(0, 0, 0, 0.35);
+
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.tabs-and-actions-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+
+  pointer-events: none;
+
+  box-shadow:
+    0 0 25px rgba(0, 255, 170, 0.25),
+    inset 0 0 10px rgba(0, 255, 170, 0.08);
+
+  opacity: 0.6;
+}
+
+/* ===== INNER TAB STRIP ===== */
+.tabs-container {
+  display: flex !important;
+  gap: 10px;
+  align-items: center;
+}
+
+/* ===== TAB BASE ===== */
+.tab {
+  height: 30px !important;
+  padding: 0 14px !important;
+
+  border-radius: 10px !important;
+
+  background: rgba(255, 255, 255, 0.02) !important;
+
+  transition: all 0.2s ease;
+}
+
+/* ===== TAB TEXT ===== */
+.tab .label-name {
+  font-size: 12.5px;
+  opacity: 0.9;
+}
+
+/* ===== HOVER ===== */
+.tab:hover {
+  background: rgba(0, 255, 170, 0.08) !important;
+  box-shadow: 0 0 10px rgba(0, 255, 170, 0.2);
+}
+
+/* ===== ACTIVE TAB ===== */
+.tab.active {
+  box-shadow:
+    0 0 12px rgba(0, 255, 170, 0.5),
+    inset 0 0 6px rgba(255, 255, 255, 0.08);
+}
+
+/* ===== ACTIVE TOP LINE (the key effect) ===== */
+.tab.active::after {
+  height: 2px;
+  background: rgba(0, 255, 170, 0.4);
+  opacity: 0.4;
+}
+
+/* ===== SUBTLE SECONDARY LINE (for depth) ===== */
+.tab::before {
+  display: none;
+}
+
+/* ===== CLOSE BUTTON CLEAN ===== */
+.tab .codicon-close {
+  opacity: 0.5;
+}
+
+.tab:hover .codicon-close {
+  opacity: 1;
+}
+
+/* === ACTIVITY BAR === */
+.monaco-workbench .activitybar .action-item.checked .action-label {
+  color: #00ffaa !important;
+  filter: drop-shadow(0 0 10px rgba(0, 255, 170, 0.9));
+}
+
+.monaco-workbench .activitybar .action-item:hover .action-label {
+  filter: drop-shadow(0 0 12px rgba(0, 255, 170, 0.6));
+}
+
+/* === COMMAND PALETTE === */
+.quick-input-widget {
+  background: rgba(20, 20, 26, 0.85) !important;
+  border-radius: 18px;
+  box-shadow:
+    0 0 50px rgba(0, 255, 170, 0.4),
+    inset 0 0 20px rgba(0, 255, 170, 0.1);
+}
