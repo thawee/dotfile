@@ -1,0 +1,6 @@
+# Ignore placeholder auth.json template
+# piagent/auth.json
+tasks/*
+
+# Debug logs
+debug.log
