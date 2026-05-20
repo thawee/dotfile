@@ -112,3 +112,14 @@ typeset -g ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 typeset -g HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=true
 typeset -g HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='fg=#00cc00,bold'     #p10k green
 typeset -g HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='fg=#FF5C57,bold' #p10k red
+
+#------------------
+# Local environment variables
+#------------------
+# Load local environment variables if the file exists
+if [[ -f "$HOME/.zprofile.local" ]]; then
+    echo "Loading local environment variables from ~/.zprofile.local"
+    source "$HOME/.zprofile.local"
+else
+    echo "No ~/.zprofile.local found. Skipping local environment variables."
+fi

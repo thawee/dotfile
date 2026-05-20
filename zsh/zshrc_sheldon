@@ -152,10 +152,6 @@ zstyle ':fzf-tab:complete:git-*:*' fzf-flags --height=85% --preview-window=right
 # Load common aliases
 [ -f "$HOME/.config/zsh/aliases.zsh" ] && source "$HOME/.config/zsh/aliases.zsh"
 
-# Fastfetch on startup
-if command -v fastfetch >/dev/null 2>&1; then
-    fastfetch
-fi
 
 # SDKMAN
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

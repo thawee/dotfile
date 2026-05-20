@@ -8,12 +8,12 @@ alias ll='ls -lah'
 alias c='clear'
 
 # Tools replacements (if installed)
-if command -v lsd >/dev/null 2>&1; then
-    alias ls='lsd'
-    alias l='ls -l'
-    alias la='ls -a'
-    alias lla='ls -la'
-    alias lt='ls --tree'
+if command -v eza >/dev/null 2>&1; then
+    alias ls='eza --icons'
+    alias l='eza -1lh --icons --git-ignore --group-directories-first'
+    alias la='eza -1lah --icons --group-directories-first'
+    alias lla='eza -lah --icons --group-directories-first'
+    alias lt='eza --tree --icons'
 else
     if [[ "$OSTYPE" == "darwin"* ]]; then
         alias ls='ls -G'
@@ -28,7 +28,8 @@ if command -v nvim >/dev/null 2>&1; then
 fi
 
 if command -v bat >/dev/null 2>&1; then
-    alias cat='bat'
+    alias cat='bat -p'
+    alias c='bat'
 fi
 
 # Git (Common ones, Zap's supercharge adds many more)
@@ -37,3 +38,14 @@ alias gp='git pull'
 alias gc='git commit'
 alias gco='git checkout'
 alias gl='git log --oneline --graph --decorate'
+
+# AI Agents
+# GitHub Copilot CLI (installed via cask "copilot-cli")
+if command -v copilot >/dev/null 2>&1; then
+    alias cpl='copilot'
+fi
+
+# AntiGravity CLI
+if command -v agy >/dev/null 2>&1; then
+    alias agq='agy'   # quick alias used in user rules
+fi

@@ -24,5 +24,23 @@ echo ""
 echo "Available themes:"
 ls -1 "$SCRIPT_DIR"/*.itermcolors | xargs -n1 basename
 echo ""
+
+# Install all iTerm2 Dynamic Profiles from this directory
+DYNAMIC_PROFILES_DIR="$HOME/Library/Application Support/iTerm2/DynamicProfiles"
+mkdir -p "$DYNAMIC_PROFILES_DIR"
+
+install_dynamic_profile() {
+    local src="$1"
+    local dest_name="$2"
+    if [ -f "$src" ]; then
+        echo "  → Installing: $(basename "$src")"
+        cp "$src" "$DYNAMIC_PROFILES_DIR/$dest_name"
+    fi
+}
+
+echo "Installing iTerm2 dynamic profiles..."
+install_dynamic_profile "$SCRIPT_DIR/AI Agent.json"          "ai_agent.json"
+install_dynamic_profile "$SCRIPT_DIR/FIS Profile.json"       "fis_profile.json"
+
 echo "✓ iTerm2 color schemes ready!"
-echo "  Recommended: catppuccin-mocha.itermcolors (matches VS Code & Ghostty)"
+echo "  Recommended: IslandsDark.itermcolors (matches VS Code)"

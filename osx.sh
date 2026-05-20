@@ -40,8 +40,9 @@ defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 # Disable the warning when changing a file extension
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 
-# Avoid creating .DS_Store files on network volumes
+# Avoid creating .DS_Store files on network and USB volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
 # Disable disk image verification
 defaults write com.apple.frameworks.diskimages skip-verify -bool true
@@ -93,6 +94,14 @@ defaults write com.apple.finder FinderSounds -boolean false
 chflags nohidden ~/Library
 
 ###############################################################################
+# Keyboard                                                                    #
+###############################################################################
+
+# Set a blazingly fast keyboard repeat rate
+defaults write NSGlobalDomain KeyRepeat -int 2
+defaults write NSGlobalDomain InitialKeyRepeat -int 15
+
+###############################################################################
 # Terminal                                                                    #
 ###############################################################################
 
@@ -105,7 +114,7 @@ defaults write com.apple.terminal StringEncodings -array 4
 #defaults write com.apple.terminal "Default Window Settings" -string "Squirrelsong"
 #defaults write com.apple.terminal "Startup Window Settings" -string "Squirrelsong"
 
-open "./terminal/catppuccin-mocha.terminal"
+# open "./terminal/catppuccin-mocha.terminal"
 sleep 1 # Wait a bit to make sure the theme is loaded
 defaults write com.apple.terminal "Default Window Settings" -string "catppuccin-mocha"
 defaults write com.apple.terminal "Startup Window Settings" -string "catppuccin-mocha"

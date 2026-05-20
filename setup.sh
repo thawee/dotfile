@@ -24,7 +24,7 @@ run_zsh_script() {
 
 install_npm_global_if_missing() {
 	local pkg="$1"
-	if npm list -g --depth=0 "$pkg" >/dev/null 2>&1; then
+	if npm list -g --depth=0 "$pkg" >/dev/null 2>&1 || true; then
 		echo "$pkg already installed."
 	else
 		npm install -g "$pkg"
@@ -49,16 +49,18 @@ require_command curl
 echo "Installing Homebrew dependencies..."
 brew bundle install --upgrade --file Brewfile
 
-echo "Applying VS Code Dark Islands bootstrap..."
-if ! curl -fsSL https://raw.githubusercontent.com/bwya77/vscode-dark-islands/main/bootstrap.sh | bash; then
-	echo "Skipping VS Code Dark Islands bootstrap (download or execution failed)."
-fi
-
 run_zsh_script vscode/vscode_config.sh
 run_zsh_script iterm/iterm_config.sh
 run_zsh_script terminal/terminal_config.sh
-run_zsh_script fastfetch/fastfetch_config.sh
 run_zsh_script zsh/zsh_config.sh
+run_zsh_script vscode/install-extensions.sh
+
+if [[ -f "piagent/setup_global_pi.sh" ]]; then
+	echo "Installing Pi global configuration..."
+	bash piagent/setup_global_pi.sh
+else
+	echo "Skipping missing script: piagent/setup_global_pi.sh"
+fi
 
 echo "Installing SDKMAN and JVM tooling..."
 if [[ ! -s "$HOME/.sdkman/bin/sdkman-init.sh" ]]; then
@@ -71,6 +73,7 @@ sdk version
 install_sdk_candidate_if_missing java
 install_sdk_candidate_if_missing gradle
 install_sdk_candidate_if_missing maven
+install_sdk_candidate_if_missing ant
 
 echo "Installing Node.js dependencies..."
 require_command npm
@@ -82,11 +85,5 @@ if [[ -f package.json ]]; then
 else
 	echo "Skipping npm install (package.json not found)."
 fi
-
-echo "Installing Copilot CLI..."
-install_npm_global_if_missing @github/copilot
-
-echo "Installing Gemini CLI..."
-install_npm_global_if_missing @google/gemini-cli
 
 echo "Setup complete."

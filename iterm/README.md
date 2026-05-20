@@ -13,7 +13,7 @@ iTerm2 Catppuccin color schemes for consistent theming across terminals.
 
 1. **Double-click method** (easiest):
    - Navigate to `iterm/` directory
-   - Double-click `catppuccin-mocha.itermcolors`
+   - Double-click `IslandsDark.itermcolors`
    - iTerm2 will automatically import the theme
 
 2. **Manual import**:
@@ -25,7 +25,8 @@ iTerm2 Catppuccin color schemes for consistent theming across terminals.
 
 ## Available Themes
 
-- `catppuccin-mocha.itermcolors` - **Recommended** (matches VS Code & Ghostty)
+- `IslandsDark.itermcolors` - **Recommended** (matches VS Code)
+- `catppuccin-mocha.itermcolors` - Alternative dark theme (matches Ghostty)
 - `catppuccin-latte.itermcolors` - Light theme
 - `catppuccin-frappe.itermcolors` - Dark with purple tones
 - `catppuccin-macchiato.itermcolors` - Dark with warmer tones
