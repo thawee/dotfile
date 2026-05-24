@@ -3,7 +3,6 @@ cask_args appdir: "~/Applications"
 
 # Taps
 #tap "homebrew/bundle"
-tap "homebrew/cask-fonts"
 
 # CLI tools
 #brew "git" # use from xcode commandline tools
@@ -20,18 +19,19 @@ brew "fd"
 brew "ripgrep"
 brew "eza"
 brew "zoxide"
-brew "thefuck"
 brew "git-delta"
 brew "tldr"
 brew "jaq"
 #brew "gcc"
 brew "Gu1llaum-3/sshm/sshm"
 brew "fastfetch"
+brew "llmfit"
 
 # UI app
 cask "drawio"
 #cask "dbvisualizer"
 cask "copilot-cli"
+cask "antigravity-cli"
 #cask "squirrelsql"
 #cask "localsend"
 #cask "cmux"

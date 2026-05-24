@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
 set -euo pipefail
 
@@ -54,19 +54,14 @@ run_zsh_script iterm/iterm_config.sh
 run_zsh_script terminal/terminal_config.sh
 run_zsh_script zsh/zsh_config.sh
 run_zsh_script vscode/install-extensions.sh
-
-if [[ -f "piagent/setup_global_pi.sh" ]]; then
-	echo "Installing Pi global configuration..."
-	bash piagent/setup_global_pi.sh
-else
-	echo "Skipping missing script: piagent/setup_global_pi.sh"
-fi
+run_zsh_script fastfetch/fastfetch_config.sh
 
 echo "Installing SDKMAN and JVM tooling..."
 if [[ ! -s "$HOME/.sdkman/bin/sdkman-init.sh" ]]; then
 	curl -fsSL "https://get.sdkman.io" | bash
 fi
 
+set +u
 # shellcheck disable=SC1090
 source "$HOME/.sdkman/bin/sdkman-init.sh"
 sdk version
@@ -74,6 +69,7 @@ install_sdk_candidate_if_missing java
 install_sdk_candidate_if_missing gradle
 install_sdk_candidate_if_missing maven
 install_sdk_candidate_if_missing ant
+set -u
 
 echo "Installing Node.js dependencies..."
 require_command npm

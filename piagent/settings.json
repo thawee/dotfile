@@ -1,4 +1,0 @@
-{
-  "defaultProvider": "ollama",
-  "defaultModel": "gpt-oss:20b"
-}

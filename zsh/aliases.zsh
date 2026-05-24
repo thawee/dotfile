@@ -4,6 +4,9 @@
 # Navigation
 alias ..='cd ..'
 alias ...='cd ../..'
+alias ws='cd ~/Workspaces'
+alias doc='cd ~/Documents'
+alias dl='cd ~/Downloads'
 alias ll='ls -lah'
 alias c='clear'
 
