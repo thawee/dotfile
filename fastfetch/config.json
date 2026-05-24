@@ -1,0 +1,22 @@
+{
+  "theme": "default",
+  "title": "Fastfetch",
+  "modules": [
+    "cpu",
+    "gpu",
+    "os",
+    "kernel",
+    "uptime",
+    "shell",
+    "users",
+    "memory",
+    "disk",
+    "network",
+    "battery",
+    "ip",
+    "public_ip",
+    "time",
+    "timezone",
+    "packages"
+  ]
+}
