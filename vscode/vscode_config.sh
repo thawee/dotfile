@@ -20,4 +20,16 @@ fi
 echo "Copying VS Code settings..."
 cp "$SCRIPT_DIR/settings.json" "$VSCODE_SETTINGS_DIR/settings.json"
 
+# Copy custom CSS
+echo "Copying Custom CSS..."
+mkdir -p "$HOME/.vscode"
+cp "$SCRIPT_DIR/neon.css" "$HOME/.vscode/neon.css"
+
 echo "✓ VS Code configuration complete!"
+
+echo ""
+echo "Agent CLI Profile:"
+echo "  1. Open VS Code"
+echo "  2. Cmd+Shift+P -> Profiles: Import Profile..."
+echo "  3. Select: $SCRIPT_DIR/AI-Agent.code-profile"
+echo "  4. Switch profiles using the Gear icon -> Profiles -> AI Agent Hub"

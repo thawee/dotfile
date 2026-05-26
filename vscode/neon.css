@@ -1,41 +1,46 @@
-/* === BASE GLASS === */
+/* === NEON COMFORT VARIANT (Eye-Friendly for Long Sessions) === */
+
+/* === BASE GLASS — Increased Opacity for less background noise === */
 .monaco-workbench .part {
-  background: rgba(18, 18, 24, 0.55) !important;
-  backdrop-filter: blur(24px) saturate(160%);
-  border-radius: 14px;
+  background: rgba(18, 18, 24, 0.85) !important;
+  backdrop-filter: blur(16px) saturate(120%);
+  border-radius: 14px 14px 0 0 !important;
   box-shadow:
-    0 0 30px rgba(0, 255, 170, 0.12),
-    inset 0 0 20px rgba(0, 255, 170, 0.06);
+    0 0 15px rgba(119, 217, 189, 0.08),
+    inset 0 0 10px rgba(119, 217, 189, 0.04);
 }
 
-/* === NEON HOVER === */
+/* === SUBTLE HOVER === */
 .monaco-workbench .part:hover {
   box-shadow:
-    0 0 40px rgba(0, 255, 170, 0.35),
-    inset 0 0 25px rgba(0, 255, 170, 0.12);
+    0 0 25px rgba(119, 217, 189, 0.15),
+    inset 0 0 15px rgba(119, 217, 189, 0.08);
 }
 
-/* ===== TOP BAR — GLASS + NEON ===== */
+/* ===== TOP BAR — MORE OPAQUE ===== */
 .tabs-and-actions-container {
-  margin: 10px 12px !important;
+  position: relative !important;
+  margin: 0 12px !important;
   padding: 6px 10px !important;
+  height: 44px !important;
+  box-sizing: border-box !important;
 
   border-radius: 16px;
 
   /* glass */
-  background: rgba(18, 18, 24, 0.55);
-  backdrop-filter: blur(20px) saturate(150%);
+  background: rgba(18, 18, 24, 0.85);
+  backdrop-filter: blur(12px) saturate(130%);
 
-  /* directional light (like macOS glass) */
+  /* directional light */
   box-shadow:
-    inset 1px 1px 0 rgba(255, 255, 255, 0.10),
-    inset -1px -1px 0 rgba(0, 0, 0, 0.35),
+    inset 1px 1px 0 rgba(255, 255, 255, 0.05),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.25),
 
-    /* outer glow (match sidebar) */
-    0 0 20px rgba(0, 255, 170, 0.12),
-    0 8px 30px rgba(0, 0, 0, 0.35);
+    /* reduced outer glow */
+    0 0 12px rgba(119, 217, 189, 0.08),
+    0 8px 30px rgba(0, 0, 0, 0.4);
 
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .tabs-and-actions-container::after {
@@ -43,90 +48,233 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-
   pointer-events: none;
-
   box-shadow:
-    0 0 25px rgba(0, 255, 170, 0.25),
-    inset 0 0 10px rgba(0, 255, 170, 0.08);
-
-  opacity: 0.6;
-}
-
-/* ===== INNER TAB STRIP ===== */
-.tabs-container {
-  display: flex !important;
-  gap: 10px;
-  align-items: center;
+    0 0 15px rgba(119, 217, 189, 0.1),
+    inset 0 0 5px rgba(119, 217, 189, 0.05);
+  opacity: 0.4;
 }
 
 /* ===== TAB BASE ===== */
 .tab {
   height: 30px !important;
   padding: 0 14px !important;
-
   border-radius: 10px !important;
-
-  background: rgba(255, 255, 255, 0.02) !important;
-
+  background: rgba(255, 255, 255, 0.03) !important;
   transition: all 0.2s ease;
-}
-
-/* ===== TAB TEXT ===== */
-.tab .label-name {
-  font-size: 12.5px;
-  opacity: 0.9;
 }
 
 /* ===== HOVER ===== */
 .tab:hover {
-  background: rgba(0, 255, 170, 0.08) !important;
-  box-shadow: 0 0 10px rgba(0, 255, 170, 0.2);
+  background: rgba(119, 217, 189, 0.05) !important;
+  box-shadow: 0 0 8px rgba(119, 217, 189, 0.1);
 }
 
 /* ===== ACTIVE TAB ===== */
 .tab.active {
   box-shadow:
-    0 0 12px rgba(0, 255, 170, 0.5),
-    inset 0 0 6px rgba(255, 255, 255, 0.08);
+    0 0 8px rgba(119, 217, 189, 0.3),
+    inset 0 0 4px rgba(255, 255, 255, 0.05);
 }
 
-/* ===== ACTIVE TOP LINE (the key effect) ===== */
+/* ===== ACTIVE TOP LINE ===== */
 .tab.active::after {
-  height: 2px;
-  background: rgba(0, 255, 170, 0.4);
-  opacity: 0.4;
+  content: "" !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 12px !important;
+  right: 12px !important;
+  height: 2.5px !important;
+  background: #77d9bd !important;
+  opacity: 0.9 !important;
+  box-shadow: 0 0 10px rgba(119, 217, 189, 0.8) !important;
+  border-radius: 4px !important;
 }
 
-/* ===== SUBTLE SECONDARY LINE (for depth) ===== */
-.tab::before {
-  display: none;
+/* === ACTIVITY BAR — MUTED === */
+.monaco-workbench .activitybar .action-item .action-label {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s ease !important;
 }
 
-/* ===== CLOSE BUTTON CLEAN ===== */
-.tab .codicon-close {
-  opacity: 0.5;
-}
-
-.tab:hover .codicon-close {
-  opacity: 1;
-}
-
-/* === ACTIVITY BAR === */
 .monaco-workbench .activitybar .action-item.checked .action-label {
-  color: #00ffaa !important;
-  filter: drop-shadow(0 0 10px rgba(0, 255, 170, 0.9));
+  color: #77d9bd !important;
+  filter: drop-shadow(0 0 5px rgba(119, 217, 189, 0.5));
+  transform: scale(1.06) !important;
 }
 
 .monaco-workbench .activitybar .action-item:hover .action-label {
-  filter: drop-shadow(0 0 12px rgba(0, 255, 170, 0.6));
+  filter: drop-shadow(0 0 8px rgba(119, 217, 189, 0.4));
+  transform: scale(1.12) !important;
 }
 
-/* === COMMAND PALETTE === */
-.quick-input-widget {
-  background: rgba(20, 20, 26, 0.85) !important;
+/* === COMMAND PALETTE — TOP CENTER === */
+.monaco-workbench .quick-input-widget {
+  top: 24px !important;
+  bottom: auto !important;
+  left: 50% !important;
+  transform: translate(-50%, 0) !important;
+  margin: 0 !important;
+  
+  background: rgba(20, 20, 26, 0.95) !important;
   border-radius: 18px;
   box-shadow:
-    0 0 50px rgba(0, 255, 170, 0.4),
-    inset 0 0 20px rgba(0, 255, 170, 0.1);
+    0 0 35px rgba(119, 217, 189, 0.2),
+    0 10px 40px rgba(0, 0, 0, 0.6),
+    inset 0 0 15px rgba(119, 217, 189, 0.05);
+}
+
+/* === STATUS BAR — SUBTLE === */
+.monaco-workbench .statusbar {
+  background: rgba(18, 18, 24, 0.5) !important;
+  color: rgba(255, 255, 255, 0.45) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+.monaco-workbench .statusbar-item {
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.monaco-workbench .statusbar:hover .statusbar-item {
+  opacity: 1;
+}
+
+/* === SIDEBAR & PANEL SOFTENING === */
+.monaco-workbench .part.sidebar,
+.monaco-workbench .part.panel {
+  border: none !important;
+}
+
+/* Hide line numbers slightly for less clutter */
+.editor-scrollable .line-numbers {
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
+}
+
+.editor-scrollable:hover .line-numbers {
+  opacity: 0.7;
+}
+
+/* Active Line Number Glow */
+.monaco-editor .line-numbers.active-line-number {
+  color: #77d9bd !important;
+  opacity: 1 !important;
+  font-weight: 550 !important;
+  text-shadow: 0 0 8px rgba(119, 217, 189, 0.6) !important;
+}
+
+/* === TERMINAL COMFORT === */
+.terminal-wrapper, .xterm-viewport, .xterm-screen {
+  background: transparent !important;
+}
+
+.xterm-cursor {
+  background: #77d9bd !important;
+  box-shadow: 0 0 8px 1px #77d9bd, 0 0 12px 3px rgba(119, 217, 189, 0.3);
+  border: none !important;
+}
+
+/* Terminal Tabs */
+.terminal-tabs-entry {
+  margin: 4px 8px !important;
+  border-radius: 8px !important;
+}
+
+.terminal-tabs-entry.selected {
+  background: rgba(119, 217, 189, 0.1) !important;
+  box-shadow: 0 0 8px rgba(119, 217, 189, 0.2);
+}
+
+/* === TITLE BAR — GLASS === */
+.monaco-workbench .part.titlebar {
+  background: rgba(18, 18, 24, 0.6) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+/* === FLOATING WIDGETS (Hover, Suggest, Editor Widgets) === */
+.monaco-editor .suggest-widget,
+.monaco-editor .hover-widget,
+.monaco-editor .editor-widget {
+  background: rgba(22, 22, 28, 0.92) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(119, 217, 189, 0.2) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* === SIDEBAR & PANEL HEADER SYMMETRY === */
+.sidebar .composite.title,
+.monaco-workbench .part.panel .title {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Sidebar Explorer/Tree Hover & Focus */
+.monaco-workbench .part.sidebar .monaco-list-row {
+  transition: background 0.15s ease, border-left 0.15s ease !important;
+  border-left: 3px solid transparent !important;
+}
+
+.monaco-workbench .part.sidebar .monaco-list-row.selected {
+  background: rgba(119, 217, 189, 0.1) !important;
+  border-left: 3px solid #77d9bd !important;
+}
+
+.monaco-workbench .part.sidebar .monaco-list-row:hover {
+  background: rgba(119, 217, 189, 0.05) !important;
+}
+
+/* Dropdown suggestion and widget list styling */
+.monaco-editor .suggest-widget .monaco-list-row.focused,
+.monaco-editor .editor-widget .monaco-list-row.focused {
+  background: rgba(119, 217, 189, 0.15) !important;
+  border-left: 3px solid #77d9bd !important;
+}
+
+/* === SCROLLBAR — MINIMAL NEON === */
+.monaco-workbench .scrollbar.vertical .slider {
+  background: rgba(119, 217, 189, 0.1) !important;
+  border-radius: 10px !important;
+  width: 4px !important;
+}
+
+.monaco-workbench .scrollbar.vertical .slider:hover {
+  background: rgba(119, 217, 189, 0.2) !important;
+}
+
+/* === PRO NEON CURSOR === */
+.monaco-editor .cursor {
+  background: #77d9bd !important;
+  box-shadow: 0 0 8px 1px #77d9bd, 0 0 12px 2px rgba(119, 217, 189, 0.3);
+}
+
+/* === GLASS BREADCRUMBS === */
+.monaco-workbench .part.editor .breadcrumbs-picker,
+.monaco-workbench .part.editor .tabs-and-actions-container .breadcrumbs-container {
+  background: transparent !important;
+}
+
+.monaco-breadcrumb-item {
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.monaco-breadcrumb-item:hover {
+  opacity: 1;
+  color: #77d9bd !important;
+}
+
+/* === NEON SELECTION & FIND HIGHLIGHTS === */
+.monaco-editor .selected-text {
+  background: rgba(119, 217, 189, 0.15) !important;
+}
+
+.monaco-editor .focused .selected-text {
+  background: rgba(119, 217, 189, 0.25) !important;
+}
+
+.monaco-editor .findMatch {
+  background: rgba(119, 217, 189, 0.3) !important;
+  border: 1px solid #77d9bd !important;
+  box-shadow: 0 0 8px rgba(119, 217, 189, 0.4);
 }
